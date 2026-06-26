@@ -1,0 +1,250 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Outfit', system-ui, -apple-system, sans-serif;
+
+  /* Custom Premium Colors */
+  --color-dark-bg: #030303;
+  --color-dark-card: rgba(13, 12, 22, 0.45);
+  --color-dark-card-hover: rgba(20, 18, 35, 0.6);
+  --color-accent-indigo: #6366f1;
+  --color-accent-purple: #a855f7;
+  --color-accent-pink: #ec4899;
+  --color-glow-blue: rgba(99, 102, 241, 0.15);
+  --color-glow-purple: rgba(168, 85, 247, 0.15);
+
+  /* Custom Animations mapped to keyframes */
+  --animate-float-slow: float 8s ease-in-out infinite;
+  --animate-float-medium: float 6s ease-in-out infinite;
+  --animate-float-fast: float 4s ease-in-out infinite;
+  --animate-grid-move: grid-move 20s linear infinite;
+  --animate-pulse-slow: pulse-slow 8s ease-in-out infinite;
+  --animate-ticker: ticker 25s linear infinite;
+  --animate-shine: shine 1.5s ease-in-out infinite;
+}
+
+/* Keyframe animations declared at root level for Tailwind v4 compatibility */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(0.5deg);
+  }
+}
+
+@keyframes grid-move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 40px;
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1) translate(0px, 0px);
+  }
+  33% {
+    opacity: 0.6;
+    transform: scale(1.15) translate(30px, -20px);
+  }
+  66% {
+    opacity: 0.5;
+    transform: scale(0.9) translate(-20px, 40px);
+  }
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes border-pulse {
+  0%, 100% {
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 0 35px rgba(99, 102, 241, 0.15), 0 0 100px rgba(168, 85, 247, 0.06);
+  }
+  50% {
+    border-color: rgba(168, 85, 247, 0.65);
+    box-shadow: 0 0 45px rgba(168, 85, 247, 0.25), 0 0 120px rgba(99, 102, 241, 0.12);
+  }
+}
+
+@keyframes light-sweep {
+  0% {
+    transform: translate(-100%, -100%) rotate(35deg);
+  }
+  100% {
+    transform: translate(200%, 200%) rotate(35deg);
+  }
+}
+
+@keyframes price-pop {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.65;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.pro-border-glow {
+  animation: border-pulse 4s ease-in-out infinite, float 7s ease-in-out infinite;
+}
+
+.light-sweep-line {
+  position: absolute;
+  width: 100vw;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1), transparent);
+  animation: light-sweep 15s linear infinite;
+  pointer-events: none;
+}
+
+/* Pause card floating animation on hover */
+.spotlight-card:hover {
+  animation-play-state: paused !important;
+}
+
+/* Custom Base resets */
+html, body {
+  background-color: var(--color-dark-bg);
+  color: #f3f4f6;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(10, 10, 18, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-panel-hover:hover {
+  background: rgba(18, 16, 32, 0.6);
+  border-color: rgba(168, 85, 247, 0.25);
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.1);
+  transform: translateY(-4px);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #030303;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f1f2e;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2e2e42;
+}
+
+/* Spotlight Card borders - Linear style */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 150ms ease-out, box-shadow 150ms ease-out;
+}
+
+.spotlight-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 30px rgba(99,102,241,0.4), 0 0 60px rgba(168,85,247,0.2);
+  animation-play-state: paused !important;
+}
+
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    800px circle at var(--mouse-x, 0) var(--mouse-y, 0),
+    rgba(255, 255, 255, 0.12),
+    transparent 40%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.spotlight-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 0) var(--mouse-y, 0),
+    rgba(168, 85, 247, 0.07),
+    transparent 40%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.spotlight-card:hover::after {
+  opacity: 1;
+}
+
+/* perspective grid layout background */
+.perspective-grid {
+  perspective: 1000px;
+}
+
+.perspective-grid-surface {
+  transform: rotateX(55deg) translateZ(0);
+  background-image: 
+    linear-gradient(rgba(99, 102, 241, 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.18) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center;
+  mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 75%);
+}
+
+/* Custom mask styles */
+.mask-radial {
+  mask-image: radial-gradient(circle at center, black, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%);
+}
