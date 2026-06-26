@@ -95,7 +95,3 @@ The compiled output of `npm run build` is stored in the `dist/` folder. This is 
 * **GitHub Pages**
 * **Cloudflare Pages** / **AWS S3**
 
----
-
-## 🛡️ License and Plagiarism Check
-All content, explanations, copy, and graphics within this repository are custom-developed and unique to **NeuroFlow AI**. This project does not contain plagiarized text or code snippets from templates. All definitions of proprietary technologies (e.g., Synaptic Routing Core and Consensus Syncing) have been written originally from scratch.
